@@ -1,10 +1,10 @@
 {
-    "name": "zhanglin/gather_pay",
+    "name": "gatherpay/gatherpay",
     "type": "project",
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Zhanglin\\GatherPay\\": "src/"
+            "NGatherpay\\Gatherpay\\": "src/"
         }
     },
     "authors": [
