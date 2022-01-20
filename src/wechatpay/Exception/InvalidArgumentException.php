@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Exception;
+namespace GatherPay\wechatpay\Exception;
 
 use GuzzleHttp\Exception\GuzzleException;
 

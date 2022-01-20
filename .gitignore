@@ -3,3 +3,9 @@
 /.idea/
 /composer.lock
 /.user.ini
+/index.html
+/platform_cert.pem
+/apiclient_cert.pem
+/apiclient_key.pem
+/.htaccess
+/404.html
