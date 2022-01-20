@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Util;
+namespace GatherPay\wechatpay\Util;
 
 use function basename;
 use function sprintf;

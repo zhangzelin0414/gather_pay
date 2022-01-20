@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay;
+namespace GatherPay\wechatpay;
 
 use function abs;
 use function intval;
@@ -65,7 +65,7 @@ trait ClientJsonTrait
         return static function (RequestInterface $request) use ($mchid, $serial, $privateKey): RequestInterface {
             $nonce = Formatter::nonce();
             $timestamp = (string) Formatter::timestamp();
-            $signature = GatherPay\wechatpay\src\Crypto\Rsa::sign(Formatter::request(
+            $signature = Crypto\Rsa::sign(Formatter::request(
                 $request->getMethod(), $request->getRequestTarget(), $timestamp, $nonce, static::body($request)
             ), $privateKey);
 
@@ -119,7 +119,7 @@ trait ClientJsonTrait
 
             $verified = false;
             try {
-                $verified = GatherPay\wechatpay\src\Crypto\Rsa::verify(
+                $verified = Crypto\Rsa::verify(
                     Formatter::response($timestamp, $nonce, static::body($response)),
                     $signature, $certs[$serial]
                 );
@@ -163,7 +163,7 @@ trait ClientJsonTrait
      *   - certs: array{string, \OpenSSLAsymmetricKey|\OpenSSLCertificate|object|resource|string} - The wechatpay platform serial and certificate(s), `[$serial => $cert]` pair
      *
      * @param array<string,string|int|bool|array|mixed> $config - The configuration
-     * @throws \WeChatPay\Exception\InvalidArgumentException
+     * @throws \GatherPay\wechatpay\Exception\InvalidArgumentException
      */
     public static function jsonBased(array $config = []): Client
     {

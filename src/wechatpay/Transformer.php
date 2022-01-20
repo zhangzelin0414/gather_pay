@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay;
+namespace GatherPay\wechatpay;
 
 use const LIBXML_VERSION;
 use const LIBXML_NONET;

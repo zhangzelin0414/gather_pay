@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay;
+namespace GatherPay\wechatpay;
 
 use function array_replace_recursive;
 use function call_user_func;

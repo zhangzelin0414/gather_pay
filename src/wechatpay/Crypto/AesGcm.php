@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Crypto;
+namespace GatherPay\wechatpay\Crypto;
 
 use function in_array;
 use function openssl_get_cipher_methods;

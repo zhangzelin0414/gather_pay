@@ -12,5 +12,13 @@
         }
     ],
     "minimum-stability": "dev",
-    "require": {}
+    "require": {
+        "php": ">=7.1.2",
+        "ext-curl": "*",
+        "ext-libxml": "*",
+        "ext-simplexml": "*",
+        "ext-openssl": "*",
+        "guzzlehttp/uri-template": "^0.2 || ^1.0",
+        "guzzlehttp/guzzle": "^6.5 || ^7.0"
+    }
 }

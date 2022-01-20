@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Util;
+namespace GatherPay\wechatpay\Util;
 
 use function openssl_x509_read;
 use function openssl_x509_parse;
@@ -10,7 +10,7 @@ use function strpos;
 
 use UnexpectedValueException;
 
-use GatherPay\wechatpay\src\Crypto\Rsa;
+use GatherPay\wechatpay\Crypto\Rsa;
 
 /**
  * Util for read private key and certificate.

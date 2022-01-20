@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay;
+namespace GatherPay\wechatpay;
 
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Promise\PromiseInterface;
@@ -18,7 +18,7 @@ interface ClientDecoratorInterface
 
     /**
      * @var string - The HTTP transfer `xml` based protocol
-     * @deprecated 1.0 - @see \WeChatPay\Exception\WeChatPayException::DEP_XML_PROTOCOL_IS_REACHABLE_EOL
+     * @deprecated 1.0 - @see \GatherPay\wechatpay\Exception\WeChatPayException::DEP_XML_PROTOCOL_IS_REACHABLE_EOL
      */
     public const XML_BASED = 'v2';
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Exception;
+namespace GatherPay\wechatpay\Exception;
 
 const DEP_XML_PROTOCOL_IS_REACHABLE_EOL = 'New features are all in `APIv3`, there\'s no reason to continue use this kind client since v2.0.';
 

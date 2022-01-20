@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay\Crypto;
+namespace GatherPay\wechatpay\Crypto;
 
 use const OPENSSL_ALGO_SHA256;
 use const OPENSSL_PKCS1_OAEP_PADDING;

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\GatherPay\wechatpay\src\Crypto;
+namespace GatherPay\wechatpay\Crypto;
 
 use function openssl_encrypt;
 use function base64_encode;

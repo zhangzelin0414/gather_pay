@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace GatherPay\WeChatPay;
+namespace GatherPay\wechatpay;
 
 use function strlen;
 use function trigger_error;
@@ -42,7 +42,7 @@ trait ClientXmlTrait
      * @param array{cert?: ?string, key?: ?string} $merchant - The merchant private key and certificate array. (optional)
      *
      * @return callable(callable(RequestInterface, array))
-     * @throws \WeChatPay\Exception\InvalidArgumentException
+     * @throws \GatherPay\wechatpay\Exception\InvalidArgumentException
      */
     public static function transformRequest(?string $mchid = null, string $secret = '', ?array $merchant = null): callable
     {
@@ -56,11 +56,11 @@ trait ClientXmlTrait
                     throw new Exception\InvalidArgumentException(sprintf(Exception\EV2_REQ_XML_NOTMATCHED_MCHID, $inputMchId ?? '', $mchid));
                 }
 
-                $type = $data['sign_type'] ?? GatherPay\wechatpay\src\Crypto\Hash::ALGO_MD5;
+                $type = $data['sign_type'] ?? Crypto\Hash::ALGO_MD5;
 
                 isset($options['nonceless']) || $data['nonce_str'] = $data['nonce_str'] ?? Formatter::nonce();
 
-                $data['sign'] = GatherPay\wechatpay\src\Crypto\Hash::sign($type, Formatter::queryStringLike(Formatter::ksort($data)), $secret);
+                $data['sign'] = Crypto\Hash::sign($type, Formatter::queryStringLike(Formatter::ksort($data)), $secret);
 
                 $modify = ['body' => Transformer::toXml($data)];
 
@@ -93,11 +93,11 @@ trait ClientXmlTrait
 
                     /** @var ?string $sign */
                     $sign = $result['sign'] ?? null;
-                    $type = $sign && strlen($sign) === 64 ? GatherPay\wechatpay\src\Crypto\Hash::ALGO_HMAC_SHA256 : GatherPay\wechatpay\src\Crypto\Hash::ALGO_MD5;
+                    $type = $sign && strlen($sign) === 64 ? Crypto\Hash::ALGO_HMAC_SHA256 : Crypto\Hash::ALGO_MD5;
                     /** @var string $calc - calculated digest string, it's naver `null` here because of \$type known. */
-                    $calc = GatherPay\wechatpay\src\Crypto\Hash::sign($type, Formatter::queryStringLike(Formatter::ksort($result)), $secret);
+                    $calc = Crypto\Hash::sign($type, Formatter::queryStringLike(Formatter::ksort($result)), $secret);
 
-                    return GatherPay\wechatpay\src\Crypto\Hash::equals($calc, $sign) ? $response : Create::rejectionFor($response);
+                    return Crypto\Hash::equals($calc, $sign) ? $response : Create::rejectionFor($response);
                 });
             };
         };
@@ -106,7 +106,7 @@ trait ClientXmlTrait
     /**
      * Create an APIv2's client
      *
-     * @deprecated 1.0 - @see \WeChatPay\Exception\WeChatPayException::DEP_XML_PROTOCOL_IS_REACHABLE_EOL
+     * @deprecated 1.0 - @see \GatherPay\wechatpay\Exception\WeChatPayException::DEP_XML_PROTOCOL_IS_REACHABLE_EOL
      *
      * Optional acceptable \$config parameters
      *   - mchid?: ?string - The merchant ID
