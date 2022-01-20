@@ -54,12 +54,12 @@ class WxPay
                     'description' => $param['description'],
                     'notify_url' => $param['notify_url'],
                     'amount' => [
-                        'total' => (int)$param['total'],
+                        'total' => (int)$param['total'] * 100,
                         'currency' => 'CNY'
                     ],
                 ]]);
 //            echo $resp->getStatusCode(), PHP_EOL;
-            return $resp->getBody();
+           return  json_decode((string)$resp->getBody(),true)['code_url'] ;
         } catch (\Exception $e) {
             // 进行错误处理
             echo $e->getMessage(), PHP_EOL;

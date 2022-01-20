@@ -32,7 +32,7 @@ class  AllPay
     /**
      * @param string $type |  支付宝 alipay ;  微信 wechat
      * @param string $form | 来源 电脑浏览器pc  ; 手机浏览器 mobile ;  微信浏览器  wx  ;
-     * @return void
+     * @return []
      */
     public function sendPay($param, string $type = 'alipay', string $form = 'pc')
     {
@@ -43,13 +43,9 @@ class  AllPay
             case 'wechat':
                 switch ($form) {
                     case 'pc':
-                        $param = [
-                            'out_trade_no' => 'native12177525012014070343434',
-                            'description' => 'Image形象店-深圳腾大-QQ公仔',
-                            'notify_url' => 'https://weixin.qq.com/',
-                            'total' => '2',
-                        ];
-                        $url = WxPay::pay(self::$config['wechat'], $param);
+                        self::check('wechat-pc', self::$config['wechat'], $param);
+                        $data = WxPay::pay(self::$config['wechat'], $param);
+                        var_dump($data);exit();
                         break;
                     default:
                         throw new  \Exception('未知微信支付方式');
@@ -61,6 +57,51 @@ class  AllPay
                 break;
 
         }
+
+        return [
+            'type'=> 'qr',// ur l链接 qr 二维码
+            'source'=>$type.'-'.$form,//来源
+            'data'=>$data
+        ];
+    }
+
+    public function check($type, $config, $param)
+    {
+        function checkFun($value, $CheckValue, $fun = null)
+        {
+            foreach (array_keys($CheckValue) as $v) {
+                if (empty($value[$v])) {
+                    throw new \Exception('缺少' . $CheckValue[$v]);
+                }
+            }
+            if ($fun != null) {
+                $fun($value);
+            }
+        }
+
+        switch ($type) {
+            case 'wechat-pc':
+                checkFun($config, [
+                    'appid' => 'APPID',
+                    'merchant_id' => '商户号',
+                    'merchant_private_key_file_path' => '商户API私钥文件',
+                    'platform_certificate_file_path' => '微信支付平台证书',
+                    'merchant_certificate_serial' => '证书序列号',
+                ]);
+
+                checkFun($param, [
+                    'out_trade_no' => '订单号',
+                    'description' => '商品描述',
+                    'notify_url' => '回调地址',
+                    'total' => '金额',
+                ], function ($param) {
+                    if (($param['total'] * 100) <= 1) {
+                        throw new \Exception('支付金额必须大于0.01');
+                    }
+                });
+                break;
+        }
+        return true;
     }
 
 }
