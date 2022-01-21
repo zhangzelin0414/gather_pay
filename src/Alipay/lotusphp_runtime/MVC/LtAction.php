@@ -3,6 +3,8 @@ namespace GatherPay\Alipay\lotusphp_runtime\MVC;
 
 
 namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+use GatherPay\Alipay\lotusphp_runtime\LtConfigExpression;
+
 /**
  * The Action class
  */
@@ -123,7 +125,7 @@ abstract class LtAction
 
 				foreach ($dtd->rules as $ruleKey => $ruleValue)
 				{
-					if ($ruleValue instanceof ConfigExpression)
+					if ($ruleValue instanceof LtConfigExpression)
 					{
 						eval('$_ruleValue = ' . $ruleValue->__toString());
 						$dtd->rules[$ruleKey] = $_ruleValue;

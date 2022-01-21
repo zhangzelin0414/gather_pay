@@ -1,5 +1,7 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Session;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtSession
 {
 	public $storeHandle;

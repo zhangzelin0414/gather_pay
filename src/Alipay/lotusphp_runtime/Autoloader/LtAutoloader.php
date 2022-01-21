@@ -1,5 +1,9 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Autoloader;
+use GatherPay\Alipay\lotusphp_runtime\LtStore;
+use GatherPay\Alipay\lotusphp_runtime\LtStoreFile;
+use GatherPay\Alipay\lotusphp_runtime\LtStoreMemory;
+
 class LtAutoloader
 {
 	public $conf = array(

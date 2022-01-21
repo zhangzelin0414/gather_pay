@@ -1,6 +1,8 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Cache\Adapter;
 
+use GatherPay\Alipay\lotusphp_runtime\LtStoreFile;
+
 class LtCacheAdapterFile implements LtCacheAdapter
 {
 	public function connect($hostConf)

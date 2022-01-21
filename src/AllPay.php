@@ -32,7 +32,6 @@ class  AllPay
             case 'alipay':
                 switch ($form) {
                     case 'pc':
-
                         self::check('alipay-pc', self::$config['alipay'], $param);
                         $res = AliPay::pay(array_merge(self::$config['alipay'], [  //编码格式
                                 'charset' => "UTF-8",
@@ -47,6 +46,7 @@ class  AllPay
                         throw new  \Exception('未知微信支付方式');
                         break;
                 }
+                break;
             case 'wechat':
                 switch ($form) {
                     case 'pc':
@@ -63,7 +63,6 @@ class  AllPay
                 break;
 
         }
-
         if ($res['code'] > 0) {
             throw new  \Exception($res['msg']);
         }
@@ -76,23 +75,13 @@ class  AllPay
 
     public function check($type, $config, $param)
     {
-        function checkFun($value, $CheckValue, $fun = null)
-        {
-            foreach (array_keys($CheckValue) as $v) {
-                if (empty($value[$v])) {
-                    throw new \Exception('缺少' . $CheckValue[$v]);
-                }
-            }
-            if ($fun != null) {
-                $fun($value);
-            }
-        }
+
 
         switch ($type) {
             case 'alipay-pc':
                 break;
             case 'wechat-pc':
-                checkFun($config, [
+               self::checkFun($config, [
                     'appid' => 'APPID',
                     'merchant_id' => '商户号',
                     'merchant_private_key_file_path' => '商户API私钥文件',
@@ -100,7 +89,7 @@ class  AllPay
                     'merchant_certificate_serial' => '证书序列号',
                 ]);
 
-                checkFun($param, [
+                self::checkFun($param, [
                     'out_trade_no' => '订单号',
                     'description' => '商品描述',
                     'notify_url' => '回调地址',
@@ -113,6 +102,18 @@ class  AllPay
                 break;
         }
         return true;
+    }
+
+    private function checkFun($value, $CheckValue, $fun = null)
+    {
+        foreach (array_keys($CheckValue) as $v) {
+            if (empty($value[$v])) {
+                throw new \Exception('缺少' . $CheckValue[$v]);
+            }
+        }
+        if ($fun != null) {
+            $fun($value);
+        }
     }
 
 }

@@ -1,5 +1,8 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Captcha;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+use GatherPay\Alipay\lotusphp_runtime\LtStoreFile;
+
 class LtCaptcha
 {
 	public $configHandle;

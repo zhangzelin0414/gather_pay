@@ -1,6 +1,8 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Pagination;
 
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtPagination
 {
 	public $configHandle;

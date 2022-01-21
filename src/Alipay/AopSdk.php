@@ -13,6 +13,9 @@
  * SDK工作目录
  * 存放日志，AOP缓存数据
  */
+
+use GatherPay\Alipay\lotusphp_runtime\Lotus;
+
 if (!defined("AOP_SDK_WORK_DIR"))
 {
 	define("AOP_SDK_WORK_DIR", "/tmp/");

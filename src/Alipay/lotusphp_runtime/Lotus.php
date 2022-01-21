@@ -1,5 +1,8 @@
 <?php
 namespace  GatherPay\Alipay\lotusphp_runtime;
+use GatherPay\Alipay\lotusphp_runtime\Autoloader\LtAutoloader;
+use GatherPay\Alipay\lotusphp_runtime\ObjectUtil\LtObjectUtil;
+
 class Lotus
 {
 	/**
@@ -47,9 +50,10 @@ class Lotus
 		/**
 		 * Load core component
 		 */
-		require_once $this->lotusRuntimeDir . "Store.php";
-		require_once $this->lotusRuntimeDir . "StoreMemory.php";
-		require_once $this->lotusRuntimeDir . "StoreFile.php";
+//
+//		require_once $this->lotusRuntimeDir . "Store.php";
+//		require_once $this->lotusRuntimeDir . "StoreMemory.php";
+//		require_once $this->lotusRuntimeDir . "StoreFile.php";
 
 		if ($this->defaultStoreDir)
 		{
@@ -98,7 +102,7 @@ class Lotus
 	 */
 	protected function prepareAutoloader()
 	{
-		require_once $this->lotusRuntimeDir . "Autoloader/Autoloader.php";
+//		require_once $this->lotusRuntimeDir . "Autoloader/Autoloader.php";
 		$autoloader = new LtAutoloader;
 		$autoloader->autoloadPath[] = $this->lotusRuntimeDir;
 		if (isset($this->option["autoload_dir"]))
@@ -121,7 +125,7 @@ class Lotus
 
 	protected function prepareConfig()
 	{
-		$this->configHandle = LtObjectUtil::singleton('LtConfig');
+		$this->configHandle = LtObjectUtil::singleton('\GatherPay\Alipay\lotusphp_runtime\LtConfig');
 		if (!$this->devMode)
 		{
 			$configFile = 'conf/conf.php';

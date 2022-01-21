@@ -1,6 +1,8 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\RBAC;
 
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtRbac {
 
 	public $configHandle;

@@ -38,16 +38,17 @@ class AliPay
         $aop = new AlipayTradeService($config);
         /**
          * pagePay 电脑网站支付请求
-         * @param $builder  |   业务参数，使用buildmodel中的对象生成。
+         * @param $builder |   业务参数，使用buildmodel中的对象生成。
          * @param $return_url |  同步跳转地址，公网可以访问
          * @param $notify_url |  异步通知地址，公网可以访问
          * @return $response 支付宝返回的信息
          */
-        $response = $aop->pagePay($payRequestBuilder,$param['return_url'],$param['notify_url']);
+
+        $response = $aop->pagePay($payRequestBuilder, $param['return_url'], $param['notify_url']);
 
         //输出表单
-        var_dump($response);
+//        var_dump($response);
 
-        return [];
+        return ['code' => 0, 'data' => $response];
     }
 }

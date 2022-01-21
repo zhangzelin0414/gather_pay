@@ -98,8 +98,8 @@ class AlipayTradeService
         $request->setBizContent($biz_content);
 
         // 首先调用支付api
-        $response = $this->aopclientRequestExecute($request, false);
-        // $response = $response->alipay_trade_wap_pay_response;
+        $response = $this->aopclientRequestExecute($request, true);
+//         $response = $response->alipay_trade_wap_pay_response;
         return $response;
     }
 
@@ -137,7 +137,7 @@ class AlipayTradeService
         $aop->debugInfo = true;
         if ($ispage) {
             $result = $aop->pageExecute($request, "post");
-            echo $result;
+//            echo $result;
         } else {
             $result = $aop->Execute($request);
         }

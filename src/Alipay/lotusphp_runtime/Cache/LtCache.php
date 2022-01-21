@@ -1,6 +1,9 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Cache;
 
+use GatherPay\Alipay\lotusphp_runtime\Cache\QueryEngine\TableDataGateway\LtCacheTableDataGateway;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtCache
 {
 	public $configHandle;

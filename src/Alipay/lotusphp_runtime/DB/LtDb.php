@@ -1,5 +1,9 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\DB;
+use GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\SqlMap\LtDbSqlMapClient;
+use GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\TableDataGateway\LtDbTableDataGateway;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtDb
 {
 	public $configHandle;
