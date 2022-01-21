@@ -59,16 +59,20 @@ class WxPay
                     ],
                 ]]);
 //            echo $resp->getStatusCode(), PHP_EOL;
-           return  json_decode((string)$resp->getBody(),true)['code_url'] ;
+            $url = json_decode((string)$resp->getBody(), true)['code_url'];
+            return ['code' => 0, 'data' => ['url' => $url]];
         } catch (\Exception $e) {
             // 进行错误处理
-            echo $e->getMessage(), PHP_EOL;
+            $r = $e->getResponse();
+            $message = json_decode((string)$r->getBody(), true)['message'];
+            return ['code' => 1, 'msg' => $message];
+//            echo $e->getMessage(), PHP_EOL;
             if ($e instanceof \GuzzleHttp\Exception\RequestException && $e->hasResponse()) {
-                $r = $e->getResponse();
-                echo $r->getStatusCode() . ' ' . $r->getReasonPhrase(), PHP_EOL;
-                echo $r->getBody(), PHP_EOL, PHP_EOL, PHP_EOL;
+
+//                echo $r->getStatusCode() . ' ' . $r->getReasonPhrase(), PHP_EOL;
+//                echo $r->getBody(), PHP_EOL, PHP_EOL, PHP_EOL;
             }
-            echo $e->getTraceAsString(), PHP_EOL;
+//            echo $e->getTraceAsString(), PHP_EOL;
         }
     }
 }

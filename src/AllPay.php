@@ -2,6 +2,7 @@
 
 namespace GatherPay;
 
+use GatherPay\Alipay\AliPay;
 use GatherPay\wechatpay\WxPay;
 
 class  AllPay
@@ -14,16 +15,7 @@ class  AllPay
     public static function initialization($config)
     {
         if (is_null(self::$initialization)) {
-            self::$config = [
-                'wechat' => [
-                    'appid' => 'wx80aabccdc7b64f03',//APPID
-                    'merchant_id' => '1515945761',//商户号
-                    'merchant_private_key_file_path' => '/mnt/hgfs/www/moban/gather_pay/apiclient_key.pem',//商户API私钥文件
-                    'platform_certificate_file_path' => '/mnt/hgfs/www/moban/gather_pay/platform_cert.pem',//微信支付平台证书
-                    'merchant_certificate_serial' => ' 6633D82720E59C53CEBDF9C83AB1F46DD27617D9',//证书序列号
-                ],
-                'alipay' => [],
-            ];
+            self::$config = $config;
             self::$initialization = new self();
         }
         return self::$initialization;
@@ -38,14 +30,28 @@ class  AllPay
     {
         switch ($type) {
             case 'alipay':
-                break;
+                switch ($form) {
+                    case 'pc':
 
+                        self::check('alipay-pc', self::$config['alipay'], $param);
+                        $res = AliPay::pay(array_merge(self::$config['alipay'], [  //编码格式
+                                'charset' => "UTF-8",
+                                //签名方式
+                                'sign_type' => "RSA2",
+                                //支付宝网关
+                                'gatewayUrl' => "https://openapi.alipay.com/gateway.do"
+                            ])
+                            , $param);
+                        break;
+                    default:
+                        throw new  \Exception('未知微信支付方式');
+                        break;
+                }
             case 'wechat':
                 switch ($form) {
                     case 'pc':
                         self::check('wechat-pc', self::$config['wechat'], $param);
-                        $data = WxPay::pay(self::$config['wechat'], $param);
-                        var_dump($data);exit();
+                        $res = WxPay::pay(self::$config['wechat'], $param);
                         break;
                     default:
                         throw new  \Exception('未知微信支付方式');
@@ -58,10 +64,13 @@ class  AllPay
 
         }
 
+        if ($res['code'] > 0) {
+            throw new  \Exception($res['msg']);
+        }
         return [
-            'type'=> 'qr',// ur l链接 qr 二维码
-            'source'=>$type.'-'.$form,//来源
-            'data'=>$data
+            'type' => 'qr',// ur l链接 qr 二维码
+            'source' => $type . '-' . $form,//来源
+            'data' => $res['data']
         ];
     }
 
@@ -80,6 +89,8 @@ class  AllPay
         }
 
         switch ($type) {
+            case 'alipay-pc':
+                break;
             case 'wechat-pc':
                 checkFun($config, [
                     'appid' => 'APPID',
