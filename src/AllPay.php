@@ -41,6 +41,7 @@ class  AllPay
                                 'gatewayUrl' => "https://openapi.alipay.com/gateway.do"
                             ])
                             , $param);
+                        $res_type = 'form';
                         break;
                     default:
                         throw new  \Exception('未知微信支付方式');
@@ -52,6 +53,7 @@ class  AllPay
                     case 'pc':
                         self::check('wechat-pc', self::$config['wechat'], $param);
                         $res = WxPay::pay(self::$config['wechat'], $param);
+                        $res_type = 'qr';
                         break;
                     default:
                         throw new  \Exception('未知微信支付方式');
@@ -67,8 +69,8 @@ class  AllPay
             throw new  \Exception($res['msg']);
         }
         return [
-            'type' => 'qr',// ur l链接 qr 二维码
-            'source' => $type . '-' . $form,//来源
+            'res_type' => $res_type ?? '',// ur l链接 qr 二维码 form 表单
+            'request_source' => $type . '-' . $form,//请求来源
             'data' => $res['data']
         ];
     }
@@ -81,7 +83,7 @@ class  AllPay
             case 'alipay-pc':
                 break;
             case 'wechat-pc':
-               self::checkFun($config, [
+                self::checkFun($config, [
                     'appid' => 'APPID',
                     'merchant_id' => '商户号',
                     'merchant_private_key_file_path' => '商户API私钥文件',
