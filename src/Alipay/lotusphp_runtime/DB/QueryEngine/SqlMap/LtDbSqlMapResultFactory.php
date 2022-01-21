@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\SqlMap;
+
+
 /**
  * 用于加工DB句柄query方法返回的数组
  * 开发者在一次会话中可配置多个Filter

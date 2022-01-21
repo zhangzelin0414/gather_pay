@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\SqlMap;
+
+
 class LtDbSqlMapClient
 {
 	public $configHandle;

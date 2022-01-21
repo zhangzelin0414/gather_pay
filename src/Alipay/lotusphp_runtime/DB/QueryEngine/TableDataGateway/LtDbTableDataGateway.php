@@ -1,4 +1,8 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\TableDataGateway;
+
+
+namespace GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\TableDataGateway;
 /**
  * Database Table abstract
  * 

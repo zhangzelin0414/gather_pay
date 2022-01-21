@@ -1,4 +1,6 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\Adapter\ConnectionAdapter;
+
 class LtDbConnectionAdapterPgsql implements LtDbConnectionAdapter
 {
 	public function connect($connConf)

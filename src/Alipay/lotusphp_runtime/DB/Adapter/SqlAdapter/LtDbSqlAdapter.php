@@ -1,4 +1,8 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\Adapter\SqlAdapter;
+
+namespace GatherPay\Alipay\lotusphp_runtime\DB\Adapter\SqlAdapter;
+
 interface LtDbSqlAdapter
 {
 	/**

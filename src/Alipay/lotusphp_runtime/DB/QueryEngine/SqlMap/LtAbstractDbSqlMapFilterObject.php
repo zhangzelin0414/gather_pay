@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\QueryEngine\SqlMap;
+
+
 /**
  * 加工工厂类由开发者自行开发，继承自这个类
  */

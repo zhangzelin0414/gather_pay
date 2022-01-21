@@ -1,4 +1,6 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\DB\Adapter\ConnectionAdapter;
+
 /**
  * Sqlite 预定义了类 SQLiteDatabase 本实现没有使用。 
  * 这里使用的全部是过程函数。 
