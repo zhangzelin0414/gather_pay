@@ -1,4 +1,5 @@
 <?php
+namespace  GatherPay\Alipay\lotusphp_runtime;
 class LtStoreFile implements LtStore
 {
 	static public $defaultStoreDir = "/tmp/LtStoreFile/";
