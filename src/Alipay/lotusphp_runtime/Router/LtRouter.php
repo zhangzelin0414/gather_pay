@@ -1,4 +1,8 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Router;
+
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 /**
  * The Router class
  */

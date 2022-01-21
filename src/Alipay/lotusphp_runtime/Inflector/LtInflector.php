@@ -1,4 +1,6 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Inflector;
+
 class LtInflector
 {
 	public $conf = array("separator" => "_");

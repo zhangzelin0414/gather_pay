@@ -1,5 +1,7 @@
 <?php
 namespace GatherPay\Alipay\lotusphp_runtime\Cookie;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtCookie
 {
 	public $configHandle;

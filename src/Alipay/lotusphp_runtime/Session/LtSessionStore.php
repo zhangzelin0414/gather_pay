@@ -1,4 +1,6 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Session;
+
 Interface LtSessionStore
 {
     public function open($save_path, $name);

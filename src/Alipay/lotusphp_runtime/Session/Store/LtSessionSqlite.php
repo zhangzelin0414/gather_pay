@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Session\Store;
+use GatherPay\Alipay\lotusphp_runtime\Session\LtSessionStore;
+
 class LtSessionSqlite implements LtSessionStore
 {
 	public $conf;

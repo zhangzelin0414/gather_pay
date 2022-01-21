@@ -1,4 +1,5 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Logger;
 
 class LtLogger
 {

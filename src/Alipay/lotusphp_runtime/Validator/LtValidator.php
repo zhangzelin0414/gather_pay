@@ -1,4 +1,8 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Validator;
+
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtValidator
 {
 	public $configHandle;

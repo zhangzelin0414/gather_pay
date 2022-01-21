@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+
 /**
  * The Component class
  */

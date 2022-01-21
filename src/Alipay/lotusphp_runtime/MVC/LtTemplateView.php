@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+
 class LtTemplateView
 {
 	public $layout;
@@ -114,7 +117,10 @@ class LtTemplateView
 			$str = $this->parse($str);
 			if ($this->autoCompile)
 			{
-				$prefix = "<?php\r\nif(isset(\$iscompile)&&true==\$iscompile)\r\nreturn " . var_export(array_unique($this->tpl_include_files), true) . ";?>";
+				$prefix = "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+\r\nif(isset(\$iscompile)&&true==\$iscompile)\r\nreturn " . var_export(array_unique($this->tpl_include_files), true) . ";?>";
 				$prefix = preg_replace("/([\r\n])+/", "\r\n", $prefix);
 				$postfix = "\r\n<!--Template compilation time : " . date('Y-m-d H:i:s') . "-->\r\n";
 			}
@@ -148,38 +154,95 @@ class LtTemplateView
 		$str = $this->removeComments($str);
 		$str = $this->parseIncludeComponent($str); 
 		// 回车 换行
-		$str = str_replace("{CR}", "<?php echo \"\\r\";?>", $str);
-		$str = str_replace("{LF}", "<?php echo \"\\n\";?>", $str); 
+		$str = str_replace("{CR}", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \"\\r\";?>", $str);
+		$str = str_replace("{LF}", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \"\\n\";?>", $str); 
 		// if else elseif
-		$str = preg_replace("/\{if\s+(.+?)\}/", "<?php if(\\1) { ?>", $str);
-		$str = preg_replace("/\{else\}/", "<?php } else { ?>", $str);
-		$str = preg_replace("/\{elseif\s+(.+?)\}/", "<?php } elseif (\\1) { ?>", $str);
-		$str = preg_replace("/\{\/if\}/", "<?php } ?>", $str); 
+		$str = preg_replace("/\{if\s+(.+?)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ if(\\1) { ?>", $str);
+		$str = preg_replace("/\{else\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ } else { ?>", $str);
+		$str = preg_replace("/\{elseif\s+(.+?)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ } elseif (\\1) { ?>", $str);
+		$str = preg_replace("/\{\/if\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ } ?>", $str); 
 		// loop
-		$str = preg_replace("/\{loop\s+(\S+)\s+(\S+)\}/e", "\$this->addquote('<?php if(isset(\\1) && is_array(\\1)) foreach(\\1 as \\2) { ?>')", $str);
-		$str = preg_replace("/\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}/e", "\$this->addquote('<?php if(isset(\\1) && is_array(\\1)) foreach(\\1 as \\2=>\\3) { ?>')", $str);
-		$str = preg_replace("/\{\/loop\}/", "<?php } ?>", $str); 
+		$str = preg_replace("/\{loop\s+(\S+)\s+(\S+)\}/e", "\$this->addquote('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ if(isset(\\1) && is_array(\\1)) foreach(\\1 as \\2) { ?>')", $str);
+		$str = preg_replace("/\{loop\s+(\S+)\s+(\S+)\s+(\S+)\}/e", "\$this->addquote('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ if(isset(\\1) && is_array(\\1)) foreach(\\1 as \\2=>\\3) { ?>')", $str);
+		$str = preg_replace("/\{\/loop\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ } ?>", $str); 
 		// url生成
-		$str = preg_replace("/\{url\(([^}]+)\)\}/", "<?php echo LtObjectUtil::singleton('LtUrl')->generate(\\1);?>", $str); 
+		$str = preg_replace("/\{url\(([^}]+)\)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo LtObjectUtil::singleton('LtUrl')->generate(\\1);?>", $str); 
 
 		// 函数
-		$str = preg_replace("/\{([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\s*\(([^{}]*)\))\}/", "<?php echo \\1;?>", $str);
-		$str = preg_replace("/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/", "<?php echo \$\\1;?>", $str); 
+		$str = preg_replace("/\{([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\s*\(([^{}]*)\))\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>", $str);
+		$str = preg_replace("/\{\\$([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff:]*\(([^{}]*)\))\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \$\\1;?>", $str); 
 		// 变量
 		/**
 		 * 放弃支持$name.name.name
-		 * $str = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\x7f-\xff]+)\.([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php echo \\1['\\2'];?>", $str);
+		 * $str = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\x7f-\xff]+)\.([a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1['\\2'];?>", $str);
 		 */
 		// 其它变量
-		$str = preg_replace("/\{(\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php echo \\1;?>", $str);
-		$str = preg_replace("/\{(\\$[a-zA-Z0-9_\.\[\]\'\"\$\x7f-\xff]+)\}/e", "\$this->addquote('<?php echo \\1;?>')", $str); 
+		$str = preg_replace("/\{(\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>", $str);
+		$str = preg_replace("/\{(\\$[a-zA-Z0-9_\.\[\]\'\"\$\x7f-\xff]+)\}/e", "\$this->addquote('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>')", $str); 
 		// 类->属性  类->方法
-		$str = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\x7f-\xff][+\-\>\$\'\"\,\[\]\(\)a-zA-Z0-9_\x7f-\xff]+)\}/es", "\$this->addquote('<?php echo \\1;?>')", $str); 
+		$str = preg_replace("/\{(\\\$[a-zA-Z0-9_\[\]\'\"\$\x7f-\xff][+\-\>\$\'\"\,\[\]\(\)a-zA-Z0-9_\x7f-\xff]+)\}/es", "\$this->addquote('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>')", $str); 
 		// 常量
-		$str = preg_replace("/\{([A-Z_\x7f-\xff][A-Z0-9_\x7f-\xff]*)\}/", "<?php echo \\1;?>", $str); 
+		$str = preg_replace("/\{([A-Z_\x7f-\xff][A-Z0-9_\x7f-\xff]*)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>", $str); 
 		// 静态变量
-		$str = preg_replace("/\{([a-zA-Z0-9_]*::?\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php echo \\1;?>", $str);
-		$str = preg_replace("/\{([a-zA-Z0-9_]*::?\\\$[a-zA-Z0-9_\.\[\]\'\"\$\x7f-\xff]+)\}/e", "\$this->addquote('<?php echo \\1;?>')", $str); 
+		$str = preg_replace("/\{([a-zA-Z0-9_]*::?\\\$[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*)\}/", "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>", $str);
+		$str = preg_replace("/\{([a-zA-Z0-9_]*::?\\\$[a-zA-Z0-9_\.\[\]\'\"\$\x7f-\xff]+)\}/e", "\$this->addquote('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ echo \\1;?>')", $str); 
 
 		// 合并相邻php标记
 		$str = preg_replace("/\?\>\s*\<\?php[\r\n\t ]*/", "", $str);
@@ -209,7 +272,13 @@ class LtTemplateView
 	 */
 	protected function removeComments($str, $clear = false)
 	{
-		$str = str_replace(array('<?php exit?>', '<?php exit;?>'), array('', ''), $str);
+		$str = str_replace(array('<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ exit?>', '<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+ exit;?>'), array('', ''), $str);
 		// 删除行首尾空白
 		$str = preg_replace("/([\r\n]+)[\t ]+/s", "\\1", $str);
 		$str = preg_replace("/[\t ]+([\r\n]+)/s", "\\1", $str);
@@ -351,6 +420,9 @@ class LtTemplateView
 $module = $tvar[1][$i];
 $action = $tvar[2][$i];
 $subTpl = "<?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+
 \$dispatcher = LtObjectUtil::singleton('LtDispatcher');
 \$dispatcher->dispatchComponent('$module', '$action', \$this->context);
 \$comdata = \$dispatcher->data;

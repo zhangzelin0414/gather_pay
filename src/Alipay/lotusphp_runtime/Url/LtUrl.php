@@ -1,4 +1,7 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\Url;
+use GatherPay\Alipay\lotusphp_runtime\LtConfig;
+
 class LtUrl
 {
 	public $configHandle;

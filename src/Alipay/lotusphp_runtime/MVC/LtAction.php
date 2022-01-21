@@ -1,4 +1,8 @@
 <?php
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
+
+
+namespace GatherPay\Alipay\lotusphp_runtime\MVC;
 /**
  * The Action class
  */
