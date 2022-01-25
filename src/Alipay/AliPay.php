@@ -49,6 +49,6 @@ class AliPay
         //输出表单
 //        var_dump($response);
 
-        return ['code' => 0, 'data' => $response];
+        return ['code' => 0, 'data' => ['form'=>$response]];
     }
 }
