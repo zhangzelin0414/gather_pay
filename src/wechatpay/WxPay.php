@@ -63,16 +63,13 @@ class WxPay
             return ['code' => 0, 'data' => ['url' => $url]];
         } catch (\Exception $e) {
             // 进行错误处理
-            $r = $e->getResponse();
-            $message = json_decode((string)$r->getBody(), true)['message'];
-            return ['code' => 1, 'msg' => $message];
-//            echo $e->getMessage(), PHP_EOL;
+            $msg =  $e->getMessage();
             if ($e instanceof \GuzzleHttp\Exception\RequestException && $e->hasResponse()) {
-
+                $r = $e->getResponse();
 //                echo $r->getStatusCode() . ' ' . $r->getReasonPhrase(), PHP_EOL;
-//                echo $r->getBody(), PHP_EOL, PHP_EOL, PHP_EOL;
+                $msg = json_decode((string)$r->getBody(), true)['message'];
             }
-//            echo $e->getTraceAsString(), PHP_EOL;
+            return ['code' => 1, 'msg' => $msg];
         }
     }
 }
