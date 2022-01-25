@@ -97,7 +97,7 @@ class  AllPay
                     'notify_url' => '回调地址',
                     'total' => '金额',
                 ], function ($param) {
-                    if (($param['total'] * 100) <= 1) {
+                    if (($param['total'] * 100) < 1) {
                         throw new \Exception('支付金额必须大于0.01');
                     }
                 });
