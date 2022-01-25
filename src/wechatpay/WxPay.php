@@ -54,7 +54,7 @@ class WxPay
                     'description' => $param['description'],
                     'notify_url' => $param['notify_url'],
                     'amount' => [
-                        'total' => (int)$param['total'] * 100,
+                        'total' => (int)($param['total'] * 100),
                         'currency' => 'CNY'
                     ],
                 ]]);
