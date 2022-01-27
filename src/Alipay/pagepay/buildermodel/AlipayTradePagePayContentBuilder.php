@@ -6,6 +6,7 @@
  * 说明：
  * 以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
  */
+
 namespace GatherPay\Alipay\pagepay\buildermodel;
 
 class AlipayTradePagePayContentBuilder
@@ -35,8 +36,8 @@ class AlipayTradePagePayContentBuilder
 
     public function getBizContent()
     {
-        if(!empty($this->bizContentarr)){
-            $this->bizContent = json_encode($this->bizContentarr,JSON_UNESCAPED_UNICODE);
+        if (!empty($this->bizContentarr)) {
+            $this->bizContent = json_encode($this->bizContentarr, JSON_UNESCAPED_UNICODE);
         }
         return $this->bizContent;
     }
@@ -82,6 +83,20 @@ class AlipayTradePagePayContentBuilder
     {
         $this->outTradeNo = $outTradeNo;
         $this->bizContentarr['out_trade_no'] = $outTradeNo;
+    }
+
+    //附加参数
+    public function setAdditionParam($additionParam = [])
+    {
+        $this->additionParam = $additionParam;
+        if (!empty($additionParam)) {
+            foreach ($additionParam as $key => $v) {
+                if (!empty($key) && !empty($v)) {
+                    $this->bizContentarr[$key] = $v;
+                }
+            }
+        }
+
     }
 
     public function getTimeExpress()

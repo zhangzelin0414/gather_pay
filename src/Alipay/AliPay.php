@@ -28,12 +28,16 @@ class AliPay
         //商品描述，可空
         $body = trim($param['description']);
 
+        //附加参数。
+        $additionParam = $param['addition_param'] ?? [];
+
         //构造参数
         $payRequestBuilder = new AlipayTradePagePayContentBuilder();
         $payRequestBuilder->setBody($body);
         $payRequestBuilder->setSubject($subject);
         $payRequestBuilder->setTotalAmount($total_amount);
         $payRequestBuilder->setOutTradeNo($out_trade_no);
+        $payRequestBuilder->setAdditionParam($additionParam);
 
         $aop = new AlipayTradeService($config);
         /**
